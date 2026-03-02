@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Shop Premium | Cuidado e Carinho para seu Melhor Amigo</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/32/pet-commands-summon.png">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        .bg-pet-primary { background-color: #0d9488; } /* Teal-600 */
+        .text-pet-primary { color: #0d9488; }
+        .bg-pet-accent { background-color: #f97316; } /* Orange-500 */
+        .hover-pet-accent:hover { background-color: #ea580c; }
+        
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
+        
+        /* Accordion transition */
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .faq-item.active .faq-content {
+            max-height: 200px;
+        }
+        .faq-item.active i {
+            transform: rotate(180deg);
+        }
+
+        /* Mobile Menu Transition */
+        #mobile-menu {
+            transition: all 0.3s ease-in-out;
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        #mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            transition: all 0.3s ease;
+        }
+        .back-to-top:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Ajustes de responsividade finos */
+        @media (max-width: 640px) {
+            h1 { font-size: 2.25rem !important; line-height: 1.2 !important; }
+            .section-padding { padding-top: 3rem; padding-bottom: 3rem; }
+        }
+    </style>
+</head>
+<body id="home" class="bg-gray-50 text-gray-800 overflow-x-hidden">
+
+    <!-- Navegação -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center space-x-2">
+                <i data-lucide="dog" class="text-pet-primary w-8 h-8"></i>
+                <span class="text-xl font-bold text-gray-800">Pet<span class="text-pet-primary">Aura</span></span>
+            </div>
+
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex space-x-8 font-medium">
+                <a href="#home" class="hover:text-pet-primary transition">Home</a>
+                <a href="#servicos" class="hover:text-pet-primary transition">Serviços</a>
+                <a href="#sobre" class="hover:text-pet-primary transition">Sobre Nós</a>
+                <a href="#faq" class="hover:text-pet-primary transition">Dúvidas</a>
+            </div>
+
+            <!-- Botão CTAs e Hambúrguer -->
+            <div class="flex items-center space-x-4">
+                <a href="https://wa.me/5511910526709?text=Olá!+Quero+marcar+um+horário+para+meu+pet+por+favor." 
+                   class="hidden lg:block bg-pet-accent text-white px-6 py-2 rounded-full font-bold hover-pet-accent transition text-sm">
+                    AGENDAR AGORA
+                </a>
+                
+                <!-- Ícone Menu Hambúrguer (Mobile/Tablet) -->
+                <button id="menu-toggle" class="md:hidden text-gray-800 p-2 focus:outline-none">
+                    <i data-lucide="menu" id="menu-icon" class="w-8 h-8"></i>
+                    <i data-lucide="x" id="close-icon" class="w-8 h-8 hidden"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile (Dropdown) -->
+        <div id="mobile-menu" class="fixed top-[60px] left-0 w-full h-screen bg-white z-40 md:hidden border-t border-gray-100">
+            <div class="flex flex-col p-6 space-y-6 font-semibold text-center">
+                <a href="#home" class="mobile-link text-xl py-4 border-b border-gray-50 hover:text-pet-primary">Home</a>
+                <a href="#servicos" class="mobile-link text-xl py-4 border-b border-gray-50 hover:text-pet-primary">Serviços</a>
+                <a href="#sobre" class="mobile-link text-xl py-4 border-b border-gray-50 hover:text-pet-primary">Sobre Nós</a>
+                <a href="#faq" class="mobile-link text-xl py-4 border-b border-gray-50 hover:text-pet-primary">Dúvidas</a>
+                <a href="https://wa.me/5511910526709?text=Olá!+Quero+marcar+um+horário+para+meu+pet+por+favor." class="bg-pet-accent text-white py-4 rounded-xl text-lg shadow-lg">Falar no WhatsApp</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative bg-teal-50 py-12 md:py-24 overflow-hidden">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-10 md:gap-0">
+            <div class="w-full md:w-1/2 text-center md:text-left z-10 order-2 md:order-1">
+                <span class="inline-block bg-teal-100 text-teal-700 px-4 py-1 rounded-full text-xs md:text-sm font-semibold mb-4">
+                    🐶 O cuidado que seu pet merece
+                </span>
+                <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                    Seu melhor amigo merece um <span class="text-pet-primary">dia de rei</span> com carinho profissional.
+                </h1>
+                <p class="text-base md:text-lg text-gray-600 mb-8 max-w-lg mx-auto md:mx-0">
+                    Banho e Tosa, Consultas e os melhores produtos para quem você ama. Atendimento rápido e amoroso em um ambiente 100% higienizado.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
+                    <a href="https://wa.me/5511910526709?text=Olá!+Quero+marcar+um+horário+para+meu+pet+por+favor." class="bg-pet-accent text-white px-8 py-4 rounded-xl font-bold text-lg flex items-center justify-center hover-pet-accent shadow-lg shadow-orange-200 w-full sm:w-auto">
+                        <i data-lucide="message-circle" class="mr-2"></i> Chamar no WhatsApp
+                    </a>
+                </div>
+                <div class="mt-8 flex flex-col sm:flex-row items-center justify-center md:justify-start space-y-3 sm:space-y-0 sm:space-x-4">
+                    <div class="flex -space-x-2">
+                        <img class="w-10 h-10 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=1" alt="Cliente">
+                        <img class="w-10 h-10 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=2" alt="Cliente">
+                        <img class="w-10 h-10 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=3" alt="Cliente">
+                    </div>
+                    <p class="text-sm text-gray-500 font-medium">+500 pets atendidos este mês</p>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 order-1 md:order-2 relative px-4 md:px-0">
+                <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=800" 
+                     alt="Cachorro feliz no pet shop" 
+                     class="rounded-3xl shadow-2xl relative z-10 w-full object-cover h-[300px] md:h-[500px]">
+                <div class="absolute -bottom-4 -left-0 md:-left-6 bg-white p-4 md:p-6 rounded-2xl shadow-xl z-20 hidden sm:block">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-green-100 p-2 rounded-full text-green-600">
+                            <i data-lucide="check-circle"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-xs md:text-sm">Monitoramento Online</p>
+                            <p class="text-[10px] md:text-xs text-gray-500">Veja seu pet em tempo real</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SOBRE NÓS -->
+    <section id="sobre" class="py-16 md:py-24 bg-white overflow-hidden">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                <div class="w-full lg:w-1/2">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=600" 
+                             alt="Equipe PetAura cuidando de um pet" 
+                             class="rounded-[2rem] shadow-2xl z-10 relative w-full object-cover max-h-[400px] lg:max-h-none">
+                        <div class="absolute -top-4 -right-4 bg-pet-accent text-white p-6 md:p-8 rounded-2xl shadow-xl hidden md:block">
+                            <p class="text-3xl font-bold">10+</p>
+                            <p class="text-xs">Anos de Experiência</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/2 text-center lg:text-left">
+                    <span class="text-pet-primary font-bold tracking-widest uppercase text-xs md:text-sm">Conheça nossa história</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-6 italic leading-tight">Onde o amor pelos animais é a nossa maior <span class="text-pet-primary">inspiração</span>.</h2>
+                    <p class="text-gray-600 mb-6 text-base md:text-lg leading-relaxed">
+                        A **PetAura** nasceu de um sonho: criar um refúgio onde cada pet fosse tratado com a mesma dignidade, carinho e respeito que recebem em casa. Não somos apenas um pet shop, somos uma extensão da sua família.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed hidden md:block">
+                        Nossa fundadora sempre acreditou que o bem-estar animal vai além de um bom banho. Envolve manejo positivo, paciência e o uso de tecnologia para garantir que você esteja sempre perto do seu amiguinho.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
+                        <div class="flex items-start space-x-4 bg-gray-50 p-4 rounded-xl lg:bg-transparent lg:p-0">
+                            <div class="bg-teal-100 p-2 rounded-lg text-pet-primary shrink-0">
+                                <i data-lucide="heart" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Nossa Missão</h4>
+                                <p class="text-sm text-gray-500">Proporcionar saúde e felicidade através de cuidados éticos e amorosos.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 bg-gray-50 p-4 rounded-xl lg:bg-transparent lg:p-0">
+                            <div class="bg-orange-100 p-2 rounded-lg text-pet-accent shrink-0">
+                                <i data-lucide="star" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Nossos Valores</h4>
+                                <p class="text-sm text-gray-500">Transparência, higiene rigorosa e paixão incondicional pelos pets.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Diferenciais Rápidos Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mt-16 md:mt-24 text-center">
+                <div class="flex flex-col items-center p-4">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-teal-50 rounded-full flex items-center justify-center text-pet-primary mb-3">
+                        <i data-lucide="shield-check" class="w-7 h-7 md:w-8 md:h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-sm md:text-base">Higiene Total</h3>
+                </div>
+                <div class="flex flex-col items-center p-4">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-teal-50 rounded-full flex items-center justify-center text-pet-primary mb-3">
+                        <i data-lucide="video" class="w-7 h-7 md:w-8 md:h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-sm md:text-base">Câmeras 24h</h3>
+                </div>
+                <div class="flex flex-col items-center p-4">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-teal-50 rounded-full flex items-center justify-center text-pet-primary mb-3">
+                        <i data-lucide="truck" class="w-7 h-7 md:w-8 md:h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-sm md:text-base">Taxi Dog</h3>
+                </div>
+                <div class="flex flex-col items-center p-4">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-teal-50 rounded-full flex items-center justify-center text-pet-primary mb-3">
+                        <i data-lucide="smile" class="w-7 h-7 md:w-8 md:h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-sm md:text-base">Paz de Espírito</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Serviços -->
+    <section id="servicos" class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 italic">Nossos Serviços Especializados</h2>
+            <p class="text-gray-600 mb-12 max-w-2xl mx-auto px-4 text-sm md:text-base">Oferecemos tudo o que seu pet precisa para uma vida saudável, cheirosa e cheia de alegria.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Serviço 1 -->
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm hover:shadow-xl transition group border border-gray-100 flex flex-col">
+                    <div class="bg-orange-100 w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center text-pet-accent mb-6 mx-auto group-hover:scale-110 transition">
+                        <i data-lucide="scissors" class="w-7 h-7 md:w-8 md:h-8"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4">Estética Canina</h3>
+                    <p class="text-gray-600 mb-6 flex-grow text-sm md:text-base">Muito mais que um banho, um momento de spa. Usamos produtos profissionais hipoalergênicos e toalhas individuais.</p>
+                    <ul class="text-left text-sm space-y-2 mb-8 text-gray-500">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-500"></i> Limpeza de ouvidos</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-500"></i> Corte de unhas</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-500"></i> Hidratação de pelagem</li>
+                    </ul>
+                    <a href="https://wa.me/5511910526709?text=Olá!+Quero+marcar+um+horário+para+meu+pet+por+favor." class="block w-full py-3 bg-gray-800 text-white rounded-xl font-bold hover:bg-black transition text-sm">AGENDAR BANHO</a>
+                </div>
+
+                <!-- Serviço 2 -->
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm hover:shadow-xl transition group border border-gray-100 flex flex-col">
+                    <div class="bg-teal-100 w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center text-pet-primary mb-6 mx-auto group-hover:scale-110 transition">
+                        <i data-lucide="stethoscope" class="w-7 h-7 md:w-8 md:h-8"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 text-pet-primary">Saúde em Dia</h3>
+                    <p class="text-gray-600 mb-6 flex-grow text-sm md:text-base">Prevenir é o maior ato de amor. Check-ups completos e aplicação de vacinas importadas em ambiente acolhedor.</p>
+                    <ul class="text-left text-sm space-y-2 mb-8 text-gray-500">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-500"></i> Vacinas V10 e Raiva</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-500"></i> Exames preventivos</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-500"></i> Orientação nutricional</li>
+                    </ul>
+                    <a href="https://wa.me/5511910526709?text=Olá!+Quero+marcar+um+horário+para+meu+pet+por+favor." class="block w-full py-3 bg-pet-primary text-white rounded-xl font-bold hover:bg-teal-700 transition text-sm">FALAR COM VET</a>
+                </div>
+
+                <!-- Serviço 3 -->
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm hover:shadow-xl transition group border border-gray-100 flex flex-col">
+                    <div class="bg-purple-100 w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center text-purple-600 mb-6 mx-auto group-hover:scale-110 transition">
+                        <i data-lucide="shopping-bag" class="w-7 h-7 md:w-8 md:h-8"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4">Boutique e Mimos</h3>
+                    <p class="text-gray-600 mb-6 flex-grow text-sm md:text-base">O paraíso dos brinquedos e petiscos saudáveis. Tudo o que ele ama, selecionado a dedo para diversão total.</p>
+                    <ul class="text-left text-sm space-y-2 mb-8 text-gray-500">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-500"></i> Brinquedos interativos</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-500"></i> Ração Super Premium</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-500"></i> Acessórios exclusivos</li>
+                    </ul>
+                    <a href="https://wa.me/5511910526709?text=Olá!+Quero+marcar+um+horário+para+meu+pet+por+favor." class="block w-full py-3 bg-gray-800 text-white rounded-xl font-bold hover:bg-black transition text-sm">VER NOVIDADES</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Oferta Irresistível -->
+    <section class="py-12 md:py-20">
+        <div class="container mx-auto px-4">
+            <div class="bg-gradient-to-r from-teal-600 to-teal-800 rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-12 text-white relative overflow-hidden text-center shadow-2xl">
+                <div class="relative z-10">
+                    <h2 class="text-2xl md:text-5xl font-bold mb-4 italic leading-tight">Presente de Primeira Visita! 🎁</h2>
+                    <p class="text-teal-50 text-base md:text-xl mb-8 max-w-2xl mx-auto">
+                        Agende o primeiro Banho e Tosa e ganhe uma <span class="text-yellow-400 font-bold">Hidratação Premium + Corte de Unhas</span> de cortesia.
+                    </p>
+                    <div class="bg-teal-900/40 inline-block px-4 py-2 rounded-full mb-8 backdrop-blur-sm border border-teal-500/30">
+                        <p class="text-xs md:text-sm font-semibold">⏳ Restam apenas <span class="text-yellow-400">4 cupons</span> para esta semana!</p>
+                    </div>
+                    <br>
+                    <!-- Link Atualizado com a Mensagem Estratégica do Cupom -->
+                    <a href="https://wa.me/5511910526709?text=Olá!+Vi+a+promoção+no+site+e+quero+garantir+o+meu+CUPOM+DE+PRIMEIRA+VISTA+para+o+meu+pet!+Gostaria+de+ganhar+a+Hidratação+Premium+e+Corte+de+Unhas+de+cortesia.+Como+faço+para+agendar?" 
+                       class="bg-pet-accent px-6 md:px-10 py-4 md:py-5 rounded-2xl font-bold text-base md:text-xl hover-pet-accent transition inline-block shadow-xl w-full sm:w-auto">
+                        QUERO MEU CUPOM NO WHATSAPP
+                    </a>
+                </div>
+                <!-- SVG Icon Decoration for Mobile -->
+                <i data-lucide="dog" class="absolute -bottom-10 -right-10 w-32 h-32 md:w-64 md:h-64 text-teal-500/10 rotate-12"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-12">Dúvidas Frequentes</h2>
+            
+            <div class="space-y-4">
+                <div class="faq-item border border-gray-200 rounded-2xl p-4 md:p-6 cursor-pointer hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center gap-4">
+                        <h4 class="font-bold text-sm md:text-base leading-tight">Meu pet é agitado, vocês atendem?</h4>
+                        <i data-lucide="chevron-down" class="text-gray-400 shrink-0 transition"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pt-4 text-gray-600 text-sm md:text-base">Sim! Nossa equipe é treinada em manejo positivo. Respeitamos o tempo de cada animal para que o banho seja um momento de relaxamento, não de trauma.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border border-gray-200 rounded-2xl p-4 md:p-6 cursor-pointer hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center gap-4">
+                        <h4 class="font-bold text-sm md:text-base leading-tight">Posso acompanhar o banho e tosa?</h4>
+                        <i data-lucide="chevron-down" class="text-gray-400 shrink-0 transition"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pt-4 text-gray-600 text-sm md:text-base">Com certeza! Temos uma vitrine panorâmica onde você pode ver todo o processo. Transparência total com o seu filho de quatro patas.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border border-gray-200 rounded-2xl p-4 md:p-6 cursor-pointer hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center gap-4">
+                        <h4 class="font-bold text-sm md:text-base leading-tight">Vocês buscam e entregam em casa?</h4>
+                        <i data-lucide="chevron-down" class="text-gray-400 shrink-0 transition"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p class="pt-4 text-gray-600 text-sm md:text-base">Sim! Temos o serviço de Táxi Dog com caixas seguras e higienizadas. Consulte a taxa para o seu bairro pelo WhatsApp.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-900 text-white py-12 md:py-20 relative">
+        <div class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12">
+            <div class="text-center sm:text-left">
+                <div class="flex items-center justify-center sm:justify-start space-x-2 mb-6">
+                    <i data-lucide="dog" class="text-pet-primary w-8 h-8"></i>
+                    <span class="text-2xl font-bold">Pet<span class="text-pet-primary">Aura</span></span>
+                </div>
+                <p class="text-gray-400 text-sm md:text-base">Onde o carinho e o profissionalismo se encontram para mimar quem você ama.</p>
+            </div>
+            <div class="text-center sm:text-left">
+                <h4 class="font-bold mb-6 text-lg">Contatos</h4>
+                <ul class="text-gray-400 space-y-4">
+                    <li class="flex items-center justify-center sm:justify-start"><i data-lucide="phone" class="w-4 h-4 mr-2 text-pet-primary"></i> (11) 91052-6709</li>
+                    <li class="flex items-center justify-center sm:justify-start"><i data-lucide="map-pin" class="w-4 h-4 mr-2 text-pet-primary"></i> Rua dos Pets, 123 - Centro</li>
+                    <li class="flex items-center justify-center sm:justify-start"><i data-lucide="mail" class="w-4 h-4 mr-2 text-pet-primary"></i> contato@petaura.com.br</li>
+                </ul>
+            </div>
+            <div class="text-center sm:text-left">
+                <h4 class="font-bold mb-6 text-lg">Redes Sociais</h4>
+                <div class="flex space-x-4 justify-center sm:justify-start">
+                    <a href="https://www.instagram.com/tatianesouza.assessoria?igsh=MWRwbjUxYnE1MWI4aQ==" class="bg-gray-800 p-4 rounded-full hover:bg-pet-primary transition text-white">
+                        <i data-lucide="instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/share/17DGZp5k9U/" class="bg-gray-800 p-4 rounded-full hover:bg-pet-primary transition text-white">
+                        <i data-lucide="facebook"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="text-center sm:text-left">
+                <h4 class="font-bold mb-6 text-lg">Funcionamento</h4>
+                <p class="text-gray-400">Seg a Sáb: 08h às 18h</p>
+                <div class="mt-4 bg-teal-900/30 p-3 rounded-lg border border-teal-800 inline-block md:block">
+                    <p class="text-pet-primary font-bold text-xs uppercase tracking-wider">Plantão via WhatsApp</p>
+                    <p class="text-xs text-gray-500">Respondemos em até 15 min</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Seta Voltar ao Topo -->
+        <div class="flex justify-center mt-12 md:mt-20">
+            <a href="#home" class="back-to-top bg-pet-primary text-white p-4 rounded-full shadow-lg hover:bg-teal-700 transition">
+                <i data-lucide="arrow-up" class="w-6 h-6"></i>
+            </a>
+        </div>
+
+        <div class="container mx-auto px-4 mt-12 pt-8 border-t border-gray-800 text-center text-gray-500 text-xs md:text-sm">
+            <p>&copy; 2026 PetAura Shop - Desenvolvido com ❤️ para Tatiane Nascimento De Souza.</p>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante WhatsApp -->
+    <a href="https://wa.me/5511910526709?text=Olá!+Quero+marcar+um+horário+para+meu+pet+por+favor." class="whatsapp-float bg-green-500 text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-2xl hover:bg-green-600 transition-all active:scale-95">
+        <i data-lucide="message-circle" class="w-8 h-8 md:w-10 md:h-10"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Inicializar ícones Lucide
+        lucide.createIcons();
+
+        // Menu Hambúrguer (Abre e Fecha)
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuToggle.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('active');
+            menuIcon.classList.toggle('hidden', isOpen);
+            closeIcon.classList.toggle('hidden', !isOpen);
+            // Bloqueia scroll do corpo quando menu está aberto
+            document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+        });
+
+        // Fecha o menu ao clicar em qualquer link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Função do FAQ
+        function toggleFaq(element) {
+            const isActive = element.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            if (!isActive) {
+                element.classList.add('active');
+            }
+        }
+
+        // Close mobile menu on resize to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                mobileMenu.classList.remove('active');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>
+
